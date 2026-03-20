@@ -12,7 +12,7 @@ from photos.models import Photo
 class HomePageView(ListView):
     context_object_name = "all_photos"
     template_name = "common/home-page.html"
-    paginate_by = 1
+    paginate_by = 5
 
     def get_queryset(self):
         qs = Photo.objects.prefetch_related('tagged_pets', 'like_set')
