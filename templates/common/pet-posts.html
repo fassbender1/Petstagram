@@ -3,6 +3,7 @@
     <div class="top">
         <!-- User Details and image location -->
         <div class="userDetails">
+        {% if request.user.is_authenticated %}
             <a href="{% url 'accounts:details' request.user.pk %}">
                 <div class="profilepic">
                     <div class="profile_img">
@@ -12,13 +13,25 @@
                     </div>
                 </div>
             </a>
+        {% else %}
+            <a href="{% url 'accounts:login' %}">
+        {% endif %}
             <h3>
+            {% if request.user.is_authenticated %}
                 <a href="{% url 'accounts:details' request.user.pk %}">
                     <!-- if user has first name and last name -->
-                    {{ request.user.profile.get_full_name }}
+{#                    {{ request.user.profile.get_full_name }}#}
+                    {% if request.user.is_authenticated %}
+                        {{ request.user.profile.get_full_name }}
+                    {% else %}
+                        Guest
+                    {% endif %}
                     <!-- else -->
                     <!-- user username -->
                 </a>
+            {% else %}
+                <a href="{% url 'accounts:login' %}">
+            {% endif %}
                 <br>
                 <!-- if the photo has location -->
                 <span>{{ photo.location }}</span>
@@ -102,7 +115,12 @@
                                 <p>
                                     <!-- Link to User Profile Details Page-->
                                     <!-- User First and/or Last Name or username-->
-                                    <a href="">{{ request.user.profile.get_full_name }}</a>
+{#                                    <a href="">{{ request.user.profile.get_full_name }}</a>#}
+                                    {% if comment.user.profile %}
+                                        {{ comment.user.profile.get_full_name }}
+                                    {% else %}
+                                        {{ comment.user.username }}
+                                    {% endif %}
                                     <!-- User Comment -->
                                     - {{ comment.text }}
                                 </p>
