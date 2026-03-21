@@ -1,5 +1,6 @@
 
 {% load static %}
+
 <nav class="navbar">
     <div class="container">
         <div class="logo">
@@ -37,10 +38,14 @@
                             <i>Profile</i>
                         </a>
                     </li>
-                    <form action="{% url 'accounts:logout' %}" method="post">
+                    <li class="nav-item">
+                    <form action="{% url 'accounts:logout' %}" method="post" class="logout-form">
                         {% csrf_token %}
-                        <button class="button"><i>Logout</i></button>
+                        <button type="submit" class="nav-link-btn">
+                            <i>Logout</i>
+                        </button>
                     </form>
+                    </li>
                 {% else %}
                     <li class="nav-item">
     
